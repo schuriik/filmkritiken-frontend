@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { useAuth } from '@/composables/useAuth'
 import { useFilmCreateModal } from '@/features/filmkritiken/composables/useFilmCreateModal'
 
-const { canAddFilm } = useAuth()
+// storeToRefs, weil ein direktes Destructuring den Computed-Wert einmalig
+// auspackt: canAddFilm wäre für immer false, da die Session erst nach dem
+// Mounten geladen wird.
+const { canAddFilm } = storeToRefs(useAuth())
 const { openModal } = useFilmCreateModal()
 </script>
 
